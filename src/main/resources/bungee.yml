@@ -1,0 +1,4 @@
+name: BungeeDiscord
+version: ${project.version}
+main: io.github.dice10.bungeediscord.BungeeDiscord
+description: BungeeCord用Discordプラグイン
