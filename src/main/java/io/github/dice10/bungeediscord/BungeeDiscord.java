@@ -89,7 +89,6 @@ public class BungeeDiscord extends Plugin implements Listener {
         String message = event.getMessage();
         Discord discord = new Discord();
         String nameOnServer = "**["+sender+"@"+senderServer+"]**";
-//        long l =  665193946997194755L;
         long l =  getID();
         if(jda != null) {
             TextChannel txtChannel = jda.getTextChannelById(l);
@@ -99,7 +98,6 @@ public class BungeeDiscord extends Plugin implements Listener {
         }
     }
     public void DiscordMain() throws LoginException, InterruptedException {
-//        setJDA("NzA4OTQ3NjQ4NTU1NTE1OTY2.XrexIQ.6BtM2oiURa4CbjEdjQyXROr34xM");
         setJDA(getToken());
         jda.awaitReady();
         this.discordEvents = new DiscordEvents(getJDA());
