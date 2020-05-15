@@ -36,7 +36,6 @@ public class BungeeDiscord extends Plugin implements Listener {
 
 //        Discord discord = new Discord();
         file = new File(getDataFolder(),"/discord_config.yml");
-        getLogger().info(getDataFolder().toString());
 
         try {
             if(!getDataFolder().exists()){
@@ -49,10 +48,13 @@ public class BungeeDiscord extends Plugin implements Listener {
                 config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
                 config.set("TOKEN","xxxxxxxxxxx");
                 config.set("TextChannel_ID","xxxxxxxxxxx");
+                config.set("chatLink",0);
                 ConfigurationProvider.getProvider(YamlConfiguration.class).save(config,file);
             }
             else{
-
+                config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(file);
+                setID((Long) config.get("TextChannel_ID"));
+                setToken((String) config.get("TOKEN"));
                 DiscordMain();
             }
 
@@ -86,8 +88,9 @@ public class BungeeDiscord extends Plugin implements Listener {
         this.senderServer = sender.getServer().getInfo().getName();
         String message = event.getMessage();
         Discord discord = new Discord();
-        String nameOnServer = "["+sender+"@"+senderServer+"]";
-        long l =  665193946997194755L;
+        String nameOnServer = "**["+sender+"@"+senderServer+"]**";
+//        long l =  665193946997194755L;
+        long l =  getID();
         if(jda != null) {
             TextChannel txtChannel = jda.getTextChannelById(l);
             if (txtChannel.canTalk()) {
@@ -96,7 +99,8 @@ public class BungeeDiscord extends Plugin implements Listener {
         }
     }
     public void DiscordMain() throws LoginException, InterruptedException {
-        setJDA("NzA4OTQ3NjQ4NTU1NTE1OTY2.XrexIQ.6BtM2oiURa4CbjEdjQyXROr34xM");
+//        setJDA("NzA4OTQ3NjQ4NTU1NTE1OTY2.XrexIQ.6BtM2oiURa4CbjEdjQyXROr34xM");
+        setJDA(getToken());
         jda.awaitReady();
         this.discordEvents = new DiscordEvents(getJDA());
         jda.addEventListener(this.discordEvents);
